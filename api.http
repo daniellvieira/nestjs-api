@@ -1,0 +1,41 @@
+GET http://localhost:3000/prefix/path
+
+###
+GET http://localhost:3000/orders
+
+###
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "amount": 11.11
+}
+
+###
+GET http://localhost:3000/orders/bd836b92-c7a6-4f37-91dc-e5da77f7c421
+
+###
+PATCH http://localhost:3000/orders/bd836b92-c7a6-4f37-91dc-e5da77f7c421
+Content-Type: application/json
+
+{
+  "amount": "12.12",
+  "status": "approved"
+}
+
+###
+DELETE http://localhost:3000/orders/6d342e6a-b175-4500-9b1f-0ec1b49a6135
+
+
+###
+GET http://localhost:3000/users
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "daniel@gmail.com",
+  "name": "Daniel Vieira",
+  "password": "123456"
+}
