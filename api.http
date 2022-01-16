@@ -8,11 +8,11 @@ POST http://localhost:3000/orders
 Content-Type: application/json
 
 {
-  "amount": 11.11
+  "amount": 10.10
 }
 
 ###
-GET http://localhost:3000/orders/bd836b92-c7a6-4f37-91dc-e5da77f7c421
+GET http://localhost:3000/orders/305ef623-0a59-46fe-8cf5-053a3f080005
 
 ###
 PATCH http://localhost:3000/orders/bd836b92-c7a6-4f37-91dc-e5da77f7c421

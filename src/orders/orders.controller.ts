@@ -1,15 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Inject } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { KafkaMessage, Producer } from '@nestjs/microservices/external/kafka.interface';
+import { OrderStatus } from './entities/order.entity';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(
+    private readonly ordersService: OrdersService,
+    @Inject('KAFKA_PRODUCER')
+    private kafkaProducer: Producer,
+  ) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+  async create(@Body() createOrderDto: CreateOrderDto) {
+    const order = await this.ordersService.create(createOrderDto);
+    this.kafkaProducer.send({
+      topic: 'payments',
+      messages: [{
+        key: 'payments',
+        value: JSON.stringify(order),
+      }]
+    })
+    return order;
   }
 
   @Get()
@@ -31,5 +46,30 @@ export class OrdersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ordersService.remove(id);
+  }
+
+  @MessagePattern('payments')
+  async consumerPayments(@Payload() message: KafkaMessage) {
+    await this.kafkaProducer.send({
+      topic: 'payments-approved',
+      messages: [
+        {
+          key: 'payments-approved',
+          value: JSON.stringify({
+            ...message.value,
+            status: OrderStatus.Approved,
+          }),
+        },
+      ],
+    });
+    console.log(message.value);
+  }
+
+  @MessagePattern('payments-approved')
+  async consumerPaymentsApproved(@Payload() message: KafkaMessage) {
+    const { id } = message.value as any;
+
+    await this.ordersService.update(id, { status: OrderStatus.Approved });
+    console.log(message.value);
   }
 }
