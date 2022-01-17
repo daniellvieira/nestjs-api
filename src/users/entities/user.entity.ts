@@ -1,4 +1,10 @@
-import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  Column,
+  DataType,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
 
 export enum UserStatus {
   Approved = 'approved',
@@ -16,11 +22,11 @@ export class User extends Model {
   id: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  email: number;
+  email: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  name: number;
+  name: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  password: number;
+  password: string;
 }

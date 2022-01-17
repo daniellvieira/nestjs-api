@@ -7,7 +7,7 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(
     @Inject('USERS_REPOSITORY')
-    private userModel: typeof User
+    private userModel: typeof User,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -20,6 +20,10 @@ export class UsersService {
 
   async findOne(id: string) {
     return this.userModel.findByPk(id);
+  }
+
+  async findByEmail(email: string) {
+    return await this.userModel.findOne({ where: { email } });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

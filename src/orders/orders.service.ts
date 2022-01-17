@@ -7,7 +7,7 @@ import { Order } from './entities/order.entity';
 export class OrdersService {
   constructor(
     @Inject('ORDERS_REPOSITORY')
-    private orderModel: typeof Order
+    private orderModel: typeof Order,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {

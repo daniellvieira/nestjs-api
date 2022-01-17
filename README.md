@@ -71,3 +71,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Sequelize
+
+- Queryning with [Sequelize](https://sequelize.org/v3/docs/querying/)
+- Freecodecamp [How to Build Web APIs with NestJS, Postgres, and Sequelize - A Beginner's Guide](https://www.freecodecamp.org/news/build-web-apis-with-nestjs-beginners-guide/)
+
+- Para proteger rotas utilizamos os [Guards](https://docs.nestjs.com/guards)
