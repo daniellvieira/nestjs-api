@@ -1,10 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Inject } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  Inject,
+  UseGuards,
+} from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { KafkaMessage, Producer } from '@nestjs/microservices/external/kafka.interface';
+import {
+  KafkaMessage,
+  Producer,
+} from '@nestjs/microservices/external/kafka.interface';
 import { OrderStatus } from './entities/order.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('orders')
 export class OrdersController {
@@ -19,11 +34,13 @@ export class OrdersController {
     const order = await this.ordersService.create(createOrderDto);
     this.kafkaProducer.send({
       topic: 'payments',
-      messages: [{
-        key: 'payments',
-        value: JSON.stringify(order),
-      }]
-    })
+      messages: [
+        {
+          key: 'payments',
+          value: JSON.stringify(order),
+        },
+      ],
+    });
     return order;
   }
 

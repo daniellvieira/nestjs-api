@@ -78,3 +78,5 @@ Nest is [MIT licensed](LICENSE).
 - Freecodecamp [How to Build Web APIs with NestJS, Postgres, and Sequelize - A Beginner's Guide](https://www.freecodecamp.org/news/build-web-apis-with-nestjs-beginners-guide/)
 
 - Para proteger rotas utilizamos os [Guards](https://docs.nestjs.com/guards)
+
+- Para o JWT, utilizamos como base a própria [Documentação do NestJS](https://docs.nestjs.com/security/authentication#jwt-functionality)
