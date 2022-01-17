@@ -1,5 +1,6 @@
 ###
 GET http://localhost:3000/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJzdWIiOiI5OTQxOGY4NC0wODZjLTRiOWYtOTJhZS1iZmM2MmE0MWFlZGYiLCJpYXQiOjE2NDI0MjAxNjcsImV4cCI6MTY0MjQyMDIyN30.STKZ9Bj-8ShSDES-j282-YJ5It5PNoeXWesrXSDumBU
 
 ###
 POST http://localhost:3000/orders
@@ -46,3 +47,7 @@ Content-Type: application/json
   "email": "daniel@gmail.com",
   "password": "123456"
 }
+
+###
+GET http://localhost:3000/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJzdWIiOiI5OTQxOGY4NC0wODZjLTRiOWYtOTJhZS1iZmM2MmE0MWFlZGYiLCJpYXQiOjE2NDI0MjAxNjcsImV4cCI6MTY0MjQyMDIyN30.STKZ9Bj-8ShSDES-j282-YJ5It5PNoeXWesrXSDumBU
